@@ -1,0 +1,205 @@
+# Organization structure for Backstage catalog
+#
+# Defines teams and users that own OpenChoreo catalog entities.
+# Projects and components are assigned owners via the backstage.io/owner
+# annotation on their Kubernetes CRs.
+
+# ---------------------------------------------------------------------------
+# Department
+# ---------------------------------------------------------------------------
+
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: engineering
+  description: Engineering department
+spec:
+  type: department
+  profile:
+    displayName: Engineering
+  children:
+    - platform-team
+    - product-alpha
+    - product-beta
+    - infra-team
+
+---
+# ---------------------------------------------------------------------------
+# Teams
+# ---------------------------------------------------------------------------
+
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: platform-team
+  description: Platform engineering — developer tooling, shared services, and infrastructure components
+spec:
+  type: team
+  profile:
+    displayName: Platform Team
+  parent: engineering
+  children: []
+  members:
+    - kavith
+    - sarah
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: product-alpha
+  description: Product Alpha — storefront, commerce, and customer-facing applications
+spec:
+  type: team
+  profile:
+    displayName: Product Alpha
+  parent: engineering
+  children: []
+  members:
+    - alex
+    - priya
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: product-beta
+  description: Product Beta — APIs, integrations, and microservices
+spec:
+  type: team
+  profile:
+    displayName: Product Beta
+  parent: engineering
+  children: []
+  members:
+    - liam
+    - nina
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: infra-team
+  description: Infrastructure and observability — monitoring, alerting, and service mesh
+spec:
+  type: team
+  profile:
+    displayName: Infra Team
+  parent: engineering
+  children: []
+  members:
+    - jordan
+    - mei
+
+---
+# Default owner group — fallback for entities without a backstage.io/owner annotation
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: openchoreo-users
+  title: OpenChoreo Users
+  description: Default owner group for OpenChoreo catalog entities without an explicit backstage.io/owner annotation.
+spec:
+  type: team
+  parent: engineering
+  children: []
+
+---
+# ---------------------------------------------------------------------------
+# Users
+# ---------------------------------------------------------------------------
+
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: kavith
+spec:
+  profile:
+    displayName: Kavith Lokuhewage
+    email: kavith@example.com
+  memberOf:
+    - platform-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: sarah
+spec:
+  profile:
+    displayName: Sarah Chen
+    email: sarah@example.com
+  memberOf:
+    - platform-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: alex
+spec:
+  profile:
+    displayName: Alex Rivera
+    email: alex@example.com
+  memberOf:
+    - product-alpha
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: priya
+spec:
+  profile:
+    displayName: Priya Sharma
+    email: priya@example.com
+  memberOf:
+    - product-alpha
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: liam
+spec:
+  profile:
+    displayName: Liam O'Connor
+    email: liam@example.com
+  memberOf:
+    - product-beta
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: nina
+spec:
+  profile:
+    displayName: Nina Patel
+    email: nina@example.com
+  memberOf:
+    - product-beta
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: jordan
+spec:
+  profile:
+    displayName: Jordan Lee
+    email: jordan@example.com
+  memberOf:
+    - infra-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: mei
+spec:
+  profile:
+    displayName: Mei Zhang
+    email: mei@example.com
+  memberOf:
+    - infra-team
